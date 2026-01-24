@@ -1,0 +1,19 @@
+{
+  "name": "fabricadescoci-site",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "npm run clean && node build.mjs",
+    "serve": "npx http-server dist -p 4173 -c-1"
+  },
+  "devDependencies": {
+    "clean-css-cli": "^6.1.0",
+    "fast-glob": "^3.3.2",
+    "fs-extra": "^11.2.0",
+    "html-minifier-terser": "^7.2.0",
+    "http-server": "^14.1.1",
+    "rimraf": "^6.0.1",
+    "terser": "^5.36.0"
+  }
+}

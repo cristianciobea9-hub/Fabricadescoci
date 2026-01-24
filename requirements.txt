@@ -1,0 +1,9 @@
+beautifulsoup4
+lxml
+html5lib
+jinja2
+python-slugify
+tqdm
+pydantic
+pandas
+markdown

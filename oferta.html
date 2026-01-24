@@ -1,0 +1,601 @@
+﻿<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cere oferta | FABRICADESCOCI</title>
+  <meta name="description" content="Formular complet pentru oferta de scoci adeziv personalizat, cu proof rapid, mostre in 24h si livrare controlata.">
+  <link rel="icon" href="tape.png" type="image/png">
+  <link rel="apple-touch-icon" href="tape.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="oferta.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="site-nav" aria-label="Navigare principala">
+      <div class="container nav-shell">
+        <a class="nav-brand" href="index.html">
+          <span class="brand-text">FABRICA<span class="brand-de">DE</span>SCOCI</span>
+        </a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu">
+          <span></span><span></span><span></span>
+          <span class="sr-only">Meniu</span>
+        </button>
+        <ul class="nav-menu" id="nav-menu">
+          <li><a href="index.html">Acasa</a></li>
+          <li><a href="produse.html">Produse</a></li>
+          <li><a href="oferta.html">Oferta</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main class="page">
+    <section class="form-section">
+      <div class="container form-container">
+        <div id="error-summary" class="error-summary" role="alert" aria-live="polite" hidden>
+          <strong>Te rugam sa corectezi campurile marcate:</strong>
+          <ul id="error-list"></ul>
+        </div>
+
+        <div class="form-head">
+          <p class="eyebrow">Cerere oferta</p>
+          <h1 class="form-title">Cere oferta</h1>
+          <p class="form-lead">
+            Completeaza toate sectiunile pentru o oferta corecta si completa.
+            Iti raspundem rapid cu timeline si costuri estimate.
+          </p>
+
+          <div class="form-meta">
+            <span class="form-pill">Durata medie: 4–6 minute</span>
+            <span class="form-pill">Poti salva progresul oricand</span>
+          </div>
+        </div>
+
+        <div class="stepper" role="list">
+          <button type="button" class="step is-active" data-step-label="Date client" aria-label="Date client">
+            <span class="step-index">1</span>
+            <span class="step-text">Date client</span>
+          </button>
+          <button type="button" class="step" data-step-label="Produs" aria-label="Produs">
+            <span class="step-index">2</span>
+            <span class="step-text">Produs</span>
+          </button>
+          <button type="button" class="step" data-step-label="Print" aria-label="Print">
+            <span class="step-index">3</span>
+            <span class="step-text">Print</span>
+          </button>
+          <button type="button" class="step" data-step-label="Cantitate" aria-label="Cantitate">
+            <span class="step-index">4</span>
+            <span class="step-text">Cantitate</span>
+          </button>
+          <button type="button" class="step" data-step-label="Livrare" aria-label="Livrare">
+            <span class="step-index">5</span>
+            <span class="step-text">Livrare</span>
+          </button>
+        </div>
+        <div class="progress">
+          <span class="progress-bar" id="progress-bar"></span>
+        </div>
+
+        <form id="offer-form" novalidate enctype="multipart/form-data" action="/api/oferta/index.php" method="post">
+          <input type="hidden" id="requestId" name="requestId">
+          <input type="hidden" id="requestTimestamp" name="requestTimestamp">
+          <input type="text" name="website" id="website" class="hp" autocomplete="off" tabindex="-1" aria-hidden="true">
+
+          <section class="form-step is-active" data-step="1">
+            <h2>A. Date client</h2>
+            <div class="section-card" data-animate>
+              <div class="field">
+                <label>Tip client</label>
+                <div class="field-options" role="radiogroup" aria-label="Tip client">
+                  <label class="option">
+                    <input type="radio" name="clientType" value="pf" checked>
+                    <span>Persoana fizica</span>
+                  </label>
+                  <label class="option">
+                    <input type="radio" name="clientType" value="firma">
+                    <span>Firma</span>
+                  </label>
+                </div>
+                <small class="field-error" id="error-clientType"></small>
+              </div>
+
+              <div class="field-grid">
+                <div class="field" id="field-fullName">
+                  <label for="fullName">Nume si prenume</label>
+                  <input type="text" id="fullName" name="fullName" autocomplete="name">
+                  <small class="field-error" id="error-fullName"></small>
+                </div>
+
+                <div class="field is-hidden" id="field-companyName">
+                  <label for="companyName">Nume firma</label>
+                  <input type="text" id="companyName" name="companyName" autocomplete="organization">
+                  <small class="field-error" id="error-companyName"></small>
+                </div>
+
+                <div class="field is-hidden" id="field-cui">
+                  <label for="cui">CUI</label>
+                  <input type="text" id="cui" name="cui">
+                  <small class="field-error" id="error-cui"></small>
+                </div>
+
+                <div class="field is-hidden" id="field-regcom">
+                  <label for="regCom">Nr. Registrul Comertului (optional)</label>
+                  <input type="text" id="regCom" name="regCom">
+                  <small class="field-error" id="error-regCom"></small>
+                </div>
+
+                <div class="field is-hidden" id="field-contactPerson">
+                  <label for="contactPerson">Persoana de contact</label>
+                  <input type="text" id="contactPerson" name="contactPerson" autocomplete="name">
+                  <small class="field-error" id="error-contactPerson"></small>
+                </div>
+
+                <div class="field">
+                  <label for="phone">Telefon</label>
+                  <input type="tel" id="phone" name="phone" autocomplete="tel">
+                  <small class="field-error" id="error-phone"></small>
+                </div>
+
+                <div class="field">
+                  <label for="email">Email</label>
+                  <input type="email" id="email" name="email" autocomplete="email">
+                  <small class="field-error" id="error-email"></small>
+                </div>
+
+                <div class="field">
+                  <label for="locality">Localitate</label>
+                  <input type="text" id="locality" name="locality" autocomplete="address-level2">
+                  <small class="field-error" id="error-locality"></small>
+                </div>
+
+                <div class="field">
+                  <label for="county">Judet</label>
+                  <select id="county" name="county" autocomplete="address-level1">
+                    <option value="">Alege judetul</option>
+                    <option value="Alba">Alba</option>
+                    <option value="Arad">Arad</option>
+                    <option value="Arges">Arges</option>
+                    <option value="Bacau">Bacau</option>
+                    <option value="Bihor">Bihor</option>
+                    <option value="Bistrita-Nasaud">Bistrita-Nasaud</option>
+                    <option value="Botosani">Botosani</option>
+                    <option value="Brasov">Brasov</option>
+                    <option value="Braila">Braila</option>
+                    <option value="Bucuresti">Bucuresti</option>
+                    <option value="Buzau">Buzau</option>
+                    <option value="Caras-Severin">Caras-Severin</option>
+                    <option value="Calarasi">Calarasi</option>
+                    <option value="Cluj">Cluj</option>
+                    <option value="Constanta">Constanta</option>
+                    <option value="Covasna">Covasna</option>
+                    <option value="Dambovita">Dambovita</option>
+                    <option value="Dolj">Dolj</option>
+                    <option value="Galati">Galati</option>
+                    <option value="Giurgiu">Giurgiu</option>
+                    <option value="Gorj">Gorj</option>
+                    <option value="Harghita">Harghita</option>
+                    <option value="Hunedoara">Hunedoara</option>
+                    <option value="Ialomita">Ialomita</option>
+                    <option value="Iasi">Iasi</option>
+                    <option value="Ilfov">Ilfov</option>
+                    <option value="Maramures">Maramures</option>
+                    <option value="Mehedinti">Mehedinti</option>
+                    <option value="Mures">Mures</option>
+                    <option value="Neamt">Neamt</option>
+                    <option value="Olt">Olt</option>
+                    <option value="Prahova">Prahova</option>
+                    <option value="Satu Mare">Satu Mare</option>
+                    <option value="Salaj">Salaj</option>
+                    <option value="Sibiu">Sibiu</option>
+                    <option value="Suceava">Suceava</option>
+                    <option value="Teleorman">Teleorman</option>
+                    <option value="Timis">Timis</option>
+                    <option value="Tulcea">Tulcea</option>
+                    <option value="Vaslui">Vaslui</option>
+                    <option value="Valcea">Valcea</option>
+                    <option value="Vrancea">Vrancea</option>
+                    <option value="Altul">Altul</option>
+                  </select>
+                  <small class="field-error" id="error-county"></small>
+                </div>
+
+                <div class="field is-hidden" id="field-countyOther">
+                  <label for="countyOther">Judet (altul)</label>
+                  <input type="text" id="countyOther" name="countyOther" autocomplete="address-level1">
+                  <small class="field-error" id="error-countyOther"></small>
+                </div>
+
+                <div class="field">
+                  <label for="country">Tara</label>
+                  <input type="text" id="country" name="country" value="Romania" autocomplete="country">
+                  <small class="field-error" id="error-country"></small>
+                </div>
+
+                <div class="field field-full">
+                  <label for="address">Adresa livrare</label>
+                  <input type="text" id="address" name="address" autocomplete="street-address">
+                  <small class="field-error" id="error-address"></small>
+                </div>
+
+                <div class="field field-full">
+                  <label for="addressNotes">Observatii adresa (optional)</label>
+                  <textarea id="addressNotes" name="addressNotes" rows="3"></textarea>
+                  <small class="field-error" id="error-addressNotes"></small>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="form-step" data-step="2">
+            <h2>B. Produs: scoci adeziv</h2>
+            <div class="section-card" data-animate>
+              <div class="field-grid">
+                <div class="field">
+                  <label for="tapeType">Tip scoci</label>
+                  <select id="tapeType" name="tapeType">
+                    <option value="">Alege tipul</option>
+                    <option value="PP solvent">PP solvent</option>
+                    <option value="PP acrilic">PP acrilic</option>
+                    <option value="PVC solvent">PVC solvent</option>
+                    <option value="Hot-melt">Hot-melt</option>
+                    <option value="altul">Altul</option>
+                  </select>
+                  <small class="field-error" id="error-tapeType"></small>
+                </div>
+
+                <div class="field is-hidden" id="field-tapeTypeOther">
+                  <label for="tapeTypeOther">Descrie tipul de scoci</label>
+                  <input type="text" id="tapeTypeOther" name="tapeTypeOther">
+                  <small class="field-error" id="error-tapeTypeOther"></small>
+                </div>
+
+                <div class="field">
+                  <label for="tapeWidth">Latime scoci</label>
+                  <select id="tapeWidth" name="tapeWidth">
+                    <option value="">Alege latimea</option>
+                    <option value="48">48 mm</option>
+                    <option value="50">50 mm</option>
+                    <option value="75">75 mm</option>
+                    <option value="96">96 mm</option>
+                    <option value="other">Alta latime</option>
+                  </select>
+                  <small class="field-error" id="error-tapeWidth"></small>
+                </div>
+
+                <div class="field is-hidden" id="field-tapeWidthOther">
+                  <label for="tapeWidthOther">Latime (mm)</label>
+                  <input type="number" id="tapeWidthOther" name="tapeWidthOther" min="5" max="200" step="1">
+                  <small class="field-error" id="error-tapeWidthOther"></small>
+                </div>
+
+                <div class="field">
+                  <label for="tapeLength">Lungime rola</label>
+                  <select id="tapeLength" name="tapeLength">
+                    <option value="">Alege lungimea</option>
+                    <option value="50">50 m</option>
+                    <option value="60">60 m</option>
+                    <option value="66">66 m</option>
+                    <option value="100">100 m</option>
+                    <option value="other">Alta lungime</option>
+                  </select>
+                  <small class="field-error" id="error-tapeLength"></small>
+                </div>
+
+                <div class="field is-hidden" id="field-tapeLengthOther">
+                  <label for="tapeLengthOther">Lungime (m)</label>
+                  <input type="number" id="tapeLengthOther" name="tapeLengthOther" min="30" max="1000" step="1">
+                  <small class="field-error" id="error-tapeLengthOther"></small>
+                </div>
+
+                <div class="field">
+                  <label for="tapeThickness">Grosime</label>
+                  <select id="tapeThickness" name="tapeThickness">
+                    <option value="">Alege grosimea</option>
+                    <option value="40">40 microni</option>
+                    <option value="45">45 microni</option>
+                    <option value="50">50 microni</option>
+                    <option value="60">60 microni</option>
+                    <option value="other">Alta grosime</option>
+                  </select>
+                  <small class="field-error" id="error-tapeThickness"></small>
+                </div>
+
+                <div class="field is-hidden" id="field-tapeThicknessOther">
+                  <label for="tapeThicknessOther">Grosime (microni)</label>
+                  <input type="number" id="tapeThicknessOther" name="tapeThicknessOther" min="20" max="100" step="1">
+                  <small class="field-error" id="error-tapeThicknessOther"></small>
+                </div>
+
+                <div class="field">
+                  <label for="tapeColor">Culoare scoci</label>
+                  <select id="tapeColor" name="tapeColor">
+                    <option value="">Alege culoarea</option>
+                    <option value="transparent">Transparent</option>
+                    <option value="maro">Maro</option>
+                    <option value="alb">Alb</option>
+                    <option value="altul">Alta culoare</option>
+                  </select>
+                  <small class="field-error" id="error-tapeColor"></small>
+                </div>
+
+                <div class="field is-hidden" id="field-tapeColorOther">
+                  <label for="tapeColorOther">Descrie culoarea</label>
+                  <input type="text" id="tapeColorOther" name="tapeColorOther">
+                  <small class="field-error" id="error-tapeColorOther"></small>
+                </div>
+
+                <div class="field">
+                  <label for="adhesiveType">Tip adeziv</label>
+                  <select id="adhesiveType" name="adhesiveType">
+                    <option value="">Alege adezivul</option>
+                    <option value="standard">Standard</option>
+                    <option value="extra">Extra</option>
+                    <option value="lowtemp">Pentru temperaturi scazute</option>
+                    <option value="altul">Altul</option>
+                  </select>
+                  <small class="field-error" id="error-adhesiveType"></small>
+                </div>
+
+                <div class="field is-hidden" id="field-adhesiveOther">
+                  <label for="adhesiveOther">Descrie tipul de adeziv</label>
+                  <input type="text" id="adhesiveOther" name="adhesiveOther">
+                  <small class="field-error" id="error-adhesiveOther"></small>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="form-step" data-step="3">
+            <h2>C. Personalizare print</h2>
+            <div class="section-card" data-animate>
+              <div class="field">
+                <label>Vrei print pe scoci?</label>
+                <div class="toggle">
+                  <input type="checkbox" id="printEnabled" name="printEnabled">
+                  <label for="printEnabled" class="toggle-label">
+                    <span class="toggle-track"></span>
+                    <span class="toggle-text">Da</span>
+                  </label>
+                  <span class="toggle-helper">Activeaza pentru a completa detaliile de print.</span>
+                </div>
+                <small class="field-error" id="error-printEnabled"></small>
+              </div>
+
+              <div id="print-fields" class="print-fields is-hidden">
+                <div class="field field-full">
+                  <label for="printText">Text imprimat exact</label>
+                  <textarea id="printText" name="printText" rows="3" placeholder="Scrie exact cum vrei sa apara textul pe scoci."></textarea>
+                  <small class="field-hint">Scrie exact cum vrei sa apara pe scoci (majuscule, spatii, simboluri).</small>
+                  <small class="field-error" id="error-printText"></small>
+                </div>
+
+                <div class="field field-full" id="printColorsGroup">
+                  <label>Culori print</label>
+                  <div class="checkbox-grid">
+                    <label class="option"><input type="checkbox" name="printColors" value="negru"> <span>Negru</span></label>
+                    <label class="option"><input type="checkbox" name="printColors" value="portocaliu"> <span>Portocaliu</span></label>
+                    <label class="option"><input type="checkbox" name="printColors" value="rosu"> <span>Rosu</span></label>
+                    <label class="option"><input type="checkbox" name="printColors" value="albastru"> <span>Albastru</span></label>
+                    <label class="option"><input type="checkbox" name="printColors" value="verde"> <span>Verde</span></label>
+                    <label class="option"><input type="checkbox" id="printColorOtherToggle" name="printColors" value="alta"> <span>Alta culoare</span></label>
+                  </div>
+                  <small class="field-error" id="error-printColors"></small>
+                  <div id="color-summary" class="inline-summary" hidden>Nu ai selectat nicio culoare.</div>
+                </div>
+
+                <div class="field is-hidden" id="field-printColorOther">
+                  <label for="printColorOther">Descrie culoarea</label>
+                  <input type="text" id="printColorOther" name="printColorOther">
+                  <small class="field-error" id="error-printColorOther"></small>
+                </div>
+
+                <div class="field">
+                  <label for="printColorCount">Numar culori print</label>
+                  <input type="text" id="printColorCount" name="printColorCount" readonly>
+                  <small class="field-error" id="error-printColorCount"></small>
+                </div>
+
+                <div class="field">
+                  <label for="printRepeat">Repetitie</label>
+                  <select id="printRepeat" name="printRepeat">
+                    <option value="">Alege repetitia</option>
+                    <option value="30">La 30 cm</option>
+                    <option value="40">La 40 cm</option>
+                    <option value="50">La 50 cm</option>
+                    <option value="60">La 60 cm</option>
+                    <option value="other">Alta</option>
+                  </select>
+                  <small class="field-error" id="error-printRepeat"></small>
+                </div>
+
+                <div class="field is-hidden" id="field-printRepeatOther">
+                  <label for="printRepeatOther">Repetitie (cm)</label>
+                  <input type="number" id="printRepeatOther" name="printRepeatOther" min="10" max="200" step="1">
+                  <small class="field-error" id="error-printRepeatOther"></small>
+                </div>
+
+                <div class="field">
+                  <label for="printPosition">Pozitionare print</label>
+                  <select id="printPosition" name="printPosition">
+                    <option value="">Alege pozitionarea</option>
+                    <option value="centru">Centrat</option>
+                    <option value="margine">Pe margine</option>
+                    <option value="other">Altfel</option>
+                  </select>
+                  <small class="field-error" id="error-printPosition"></small>
+                </div>
+
+                <div class="field is-hidden" id="field-printPositionOther">
+                  <label for="printPositionOther">Descrie pozitionarea</label>
+                  <input type="text" id="printPositionOther" name="printPositionOther">
+                  <small class="field-error" id="error-printPositionOther"></small>
+                </div>
+
+                <div class="field field-full">
+                  <label for="logo">Incarca logo (optional)</label>
+                  <input type="file" id="logo" name="logo" accept=".png,.jpg,.jpeg,.pdf">
+                  <div class="file-meta" id="logoFileMeta">Nu ai selectat niciun fisier. Max 10 MB.</div>
+                  <small class="field-error" id="error-logo"></small>
+                </div>
+
+                <div class="field" id="field-noLogoLater">
+                  <label class="option">
+                    <input type="checkbox" id="noLogoLater" name="noLogoLater">
+                    <span>Trimit ulterior pe WhatsApp/email</span>
+                  </label>
+                  <small class="field-error" id="error-noLogoLater"></small>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="form-step" data-step="4">
+            <h2>D. Cantitate si ambalare</h2>
+            <div class="section-card" data-animate>
+              <div class="field-grid">
+                <div class="field">
+                  <label for="quantity">Cantitate role</label>
+                  <input type="number" id="quantity" name="quantity" min="36" step="1">
+                  <small class="field-error" id="error-quantity"></small>
+                </div>
+
+                <div class="field">
+                  <label for="packaging">Ambalare</label>
+                  <select id="packaging" name="packaging">
+                    <option value="">Alege ambalarea</option>
+                    <option value="bax">Bax</option>
+                    <option value="palet">Palet</option>
+                    <option value="altul">Altul</option>
+                  </select>
+                  <small class="field-error" id="error-packaging"></small>
+                </div>
+
+                <div class="field is-hidden" id="field-packagingOther">
+                  <label for="packagingOther">Descrie ambalarea</label>
+                  <input type="text" id="packagingOther" name="packagingOther">
+                  <small class="field-error" id="error-packagingOther"></small>
+                </div>
+
+                <div class="field">
+                  <label for="deadline">Termen dorit</label>
+                  <select id="deadline" name="deadline">
+                    <option value="">Alege termenul</option>
+                    <option value="standard">Standard</option>
+                    <option value="urgent">Urgent</option>
+                    <option value="date">Data exacta</option>
+                  </select>
+                  <small class="field-error" id="error-deadline"></small>
+                </div>
+
+                <div class="field is-hidden" id="field-deadlineDate">
+                  <label for="deadlineDate">Data livrare dorita</label>
+                  <input type="date" id="deadlineDate" name="deadlineDate">
+                  <small class="field-error" id="error-deadlineDate"></small>
+                </div>
+
+                <div class="field field-full">
+                  <label for="productionNotes">Observatii productie</label>
+                  <textarea id="productionNotes" name="productionNotes" rows="4"></textarea>
+                  <small class="field-error" id="error-productionNotes"></small>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="form-step" data-step="5">
+            <h2>E. Livrare si plata</h2>
+            <div class="section-card" data-animate>
+              <div class="field-grid">
+                <div class="field">
+                  <label for="deliveryMethod">Metoda livrare</label>
+                  <select id="deliveryMethod" name="deliveryMethod">
+                    <option value="">Alege metoda</option>
+                    <option value="curier">Curier</option>
+                    <option value="ridicare">Ridicare personala</option>
+                    <option value="propriu">Transport propriu</option>
+                  </select>
+                  <small class="field-error" id="error-deliveryMethod"></small>
+                </div>
+
+                <div class="field">
+                  <label for="deliveryCity">Oras livrare</label>
+                  <input type="text" id="deliveryCity" name="deliveryCity" placeholder="Preluat din localitate">
+                  <small class="field-error" id="error-deliveryCity"></small>
+                </div>
+
+                <div class="field">
+                  <label for="payment">Plata</label>
+                  <select id="payment" name="payment">
+                    <option value="">Alege plata</option>
+                    <option value="transfer">Transfer bancar</option>
+                    <option value="ramburs">Ramburs</option>
+                    <option value="alta">Alta</option>
+                  </select>
+                  <small class="field-error" id="error-payment"></small>
+                </div>
+
+                <div class="field is-hidden" id="field-paymentOther">
+                  <label for="paymentOther">Descrie plata</label>
+                  <input type="text" id="paymentOther" name="paymentOther">
+                  <small class="field-error" id="error-paymentOther"></small>
+                </div>
+
+                <div class="field field-full">
+                  <label>TVA (informativ)</label>
+                  <div class="info-box" id="vatInfo">TVA: se stabileste in functie de tipul de client.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="section-card summary-card" data-animate>
+              <h3>Rezumat cerere</h3>
+              <div id="summary-content" class="summary-content">Completeaza campurile pentru a vedea rezumatul.</div>
+            </div>
+          </section>
+
+          <div class="form-footer">
+            <div class="step-actions">
+              <button type="button" id="prev-step" class="btn secondary">Inapoi</button>
+              <button type="button" id="next-step" class="btn secondary">Urmatorul pas</button>
+            </div>
+            <div class="form-actions">
+              <button type="button" id="save-btn" class="btn ghost">Salveaza</button>
+              <span id="autosave-status" class="autosave-status" aria-live="polite" hidden></span>
+              <button type="button" id="preview-btn" class="btn ghost">Previzualizeaza oferta</button>
+              <button type="button" id="reset-btn" class="btn link">Reset</button>
+              <button type="submit" id="submit-btn" class="btn primary">Trimite cererea</button>
+            </div>
+          </div>
+
+          <div id="form-status" class="status-message" role="status" aria-live="polite" hidden></div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <div id="preview-modal" class="preview-modal" hidden>
+    <div class="preview-dialog" role="dialog" aria-modal="true" aria-label="Previzualizare cerere oferta">
+      <div class="preview-header">
+        <div>
+          <p class="eyebrow">Cerere de oferta</p>
+          <h2>Preview cerere</h2>
+        </div>
+        <button type="button" class="btn link" id="preview-close">Inchide</button>
+      </div>
+      <div id="preview-content" class="preview-content"></div>
+      <div class="preview-actions">
+        <button type="button" class="btn secondary" id="preview-print">Descarca PDF</button>
+        <button type="button" class="btn primary" id="preview-submit">Trimite cererea</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="oferta.js" defer></script>
+</body>
+</html>

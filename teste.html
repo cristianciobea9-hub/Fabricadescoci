@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teste</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="ElectricBorder.css">
+  <style>
+    :root {
+      --bg: #060010;
+      --panel: rgba(255, 255, 255, 0.05);
+      --panel-strong: rgba(255, 255, 255, 0.08);
+      --accent: #8b5cf6;
+      --accent-2: #22d3ee;
+      --text: #f7f7fb;
+      --muted: #c2c0d4;
+      --card-radius: 18px;
+      --border-width: 1px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Figtree", "Source Sans Pro", system-ui, -apple-system, sans-serif;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(34, 211, 238, 0.12), transparent 32%),
+        radial-gradient(circle at 80% 0%, rgba(139, 92, 246, 0.18), transparent 36%),
+        radial-gradient(circle at 50% 60%, rgba(16, 17, 36, 0.7), rgba(6, 0, 16, 0.92) 55%),
+        #050414;
+      color: var(--text);
+      display: grid;
+      place-items: center;
+      padding: 32px 16px;
+    }
+
+    .page-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 46px;
+      width: 100%;
+    }
+
+    .stepper-shell {
+      width: min(420px, 100%);
+      position: relative;
+    }
+
+    .stepper-card {
+      position: relative;
+      background: var(--panel);
+      border-radius: var(--card-radius);
+      padding: 20px;
+      border: var(--border-width) solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(16px);
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45), 0 10px 30px rgba(34, 211, 238, 0.12);
+    }
+
+    .stepper-card::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      border-radius: calc(var(--card-radius) + 2px);
+      padding: 2px;
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.75), rgba(34, 211, 238, 0.75));
+      mask: linear-gradient(#000, #000) content-box, linear-gradient(#000, #000);
+      mask-composite: exclude;
+      -webkit-mask: linear-gradient(#000, #000) content-box, linear-gradient(#000, #000);
+      -webkit-mask-composite: xor;
+      pointer-events: none;
+      opacity: 0.8;
+    }
+
+    .stepper-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .stepper-dot {
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      color: #0a0620;
+      background: linear-gradient(135deg, #8b5cf6, #22d3ee);
+      box-shadow: 0 10px 22px rgba(139, 92, 246, 0.35);
+    }
+
+    .stepper-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .stepper-sub {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-top: 2px;
+    }
+
+    .divider {
+      height: 1px;
+      width: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+      margin: 14px 0 18px;
+    }
+
+    .input-label {
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .glow-input {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: var(--panel-strong);
+      color: var(--text);
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .glow-input:focus {
+      border-color: rgba(139, 92, 246, 0.7);
+      box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.12), 0 10px 30px rgba(34, 211, 238, 0.18);
+    }
+
+    .stepper-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 13px 0;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: var(--panel-strong);
+      color: var(--text);
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255, 255, 255, 0.28);
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.35);
+    }
+
+    .btn--primary {
+      background: linear-gradient(135deg, #8b5cf6, #22d3ee);
+      color: #0a0620;
+      border: none;
+      box-shadow: 0 14px 30px rgba(139, 92, 246, 0.35);
+    }
+
+    .helper {
+      margin-top: 12px;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="page-stack">
+  <div class="stepper-shell">
+    <div class="stepper-card">
+      <div class="stepper-header">
+        <div class="stepper-dot">3</div>
+        <div>
+          <div class="stepper-title">How about an input?</div>
+          <div class="stepper-sub">Pasul 3 din demo-ul Stepper ReactBits</div>
+        </div>
+      </div>
+
+      <label class="input-label" for="demo-input">Scrie ceva</label>
+      <input id="demo-input" class="glow-input" type="text" placeholder="e.g. Optional note" />
+
+      <div class="helper">Card inspirat din <em>reactbits.dev/components/stepper</em>, adaptat static pentru pagina ta.</div>
+
+      <div class="divider" aria-hidden="true"></div>
+
+      <div class="stepper-footer">
+        <button class="btn" type="button">Previous</button>
+        <button class="btn btn--primary" type="button">Next</button>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 10px; width: min(520px, 94%);">
+    <div id="eb-demo" class="electric-border" style="--electric-border-color:#7df9ff; border-radius: 18px; padding: 18px; background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.04), rgba(9,12,28,0.7)), #0a0c1e; color: #e8f9ff;">
+      <div class="eb-content">
+        <p style="margin: 0 0 6px; font-weight: 800; letter-spacing:-0.01em;">ElectricBorder demo</p>
+        <p style="margin: 0; opacity: 0.86;">Border animat cu canvas, convertit în variantă simplă vanilla pentru această pagină statică.</p>
+      </div>
+      <div class="eb-canvas-container">
+        <canvas class="eb-canvas"></canvas>
+      </div>
+      <div class="eb-layers">
+        <div class="eb-glow-1"></div>
+        <div class="eb-glow-2"></div>
+        <div class="eb-background-glow"></div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <script>
+    (() => {
+      const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
+
+      const random = x => (Math.sin(x * 12.9898) * 43758.5453) % 1;
+      const noise2D = (x, y) => {
+        const i = Math.floor(x);
+        const j = Math.floor(y);
+        const fx = x - i;
+        const fy = y - j;
+        const a = random(i + j * 57);
+        const b = random(i + 1 + j * 57);
+        const c = random(i + (j + 1) * 57);
+        const d = random(i + 1 + (j + 1) * 57);
+        const ux = fx * fx * (3 - 2 * fx);
+        const uy = fy * fy * (3 - 2 * fy);
+        return a * (1 - ux) * (1 - uy) + b * ux * (1 - uy) + c * (1 - ux) * uy + d * ux * uy;
+      };
+
+      const octavedNoise = (x, octaves, lacunarity, gain, baseAmplitude, baseFrequency, time, seed, baseFlatness) => {
+        let y = 0, amplitude = baseAmplitude, frequency = baseFrequency;
+        for (let i = 0; i < octaves; i++) {
+          let octaveAmplitude = amplitude;
+          if (i === 0) octaveAmplitude *= baseFlatness;
+          y += octaveAmplitude * noise2D(frequency * x + seed * 100, time * frequency * 0.3);
+          frequency *= lacunarity;
+          amplitude *= gain;
+        }
+        return y;
+      };
+
+      const getCornerPoint = (cx, cy, r, start, arc, p) => {
+        const ang = start + p * arc;
+        return { x: cx + r * Math.cos(ang), y: cy + r * Math.sin(ang) };
+      };
+
+      const getRoundedRectPoint = (t, left, top, width, height, radius) => {
+        const straightW = width - 2 * radius;
+        const straightH = height - 2 * radius;
+        const cornerArc = (Math.PI * radius) / 2;
+        const total = 2 * straightW + 2 * straightH + 4 * cornerArc;
+        let dist = t * total, acc = 0;
+        if (dist <= acc + straightW) return { x: left + radius + (dist - acc) * straightW / straightW, y: top };
+        acc += straightW;
+        if (dist <= acc + cornerArc) return getCornerPoint(left + width - radius, top + radius, radius, -Math.PI / 2, Math.PI / 2, (dist - acc) / cornerArc);
+        acc += cornerArc;
+        if (dist <= acc + straightH) return { x: left + width, y: top + radius + (dist - acc) };
+        acc += straightH;
+        if (dist <= acc + cornerArc) return getCornerPoint(left + width - radius, top + height - radius, radius, 0, Math.PI / 2, (dist - acc) / cornerArc);
+        acc += cornerArc;
+        if (dist <= acc + straightW) return { x: left + width - radius - (dist - acc), y: top + height };
+        acc += straightW;
+        if (dist <= acc + cornerArc) return getCornerPoint(left + radius, top + height - radius, radius, Math.PI / 2, Math.PI / 2, (dist - acc) / cornerArc);
+        acc += cornerArc;
+        if (dist <= acc + straightH) return { x: left, y: top + height - radius - (dist - acc) };
+        return getCornerPoint(left + radius, top + radius, radius, Math.PI, Math.PI / 2, (dist - acc - straightH) / cornerArc);
+      };
+
+      const initElectricBorder = (el, opts = {}) => {
+        const canvas = el.querySelector('.eb-canvas');
+        const container = el;
+        if (!canvas || !container) return;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+
+        const color = opts.color || getComputedStyle(el).getPropertyValue('--electric-border-color').trim() || '#7df9ff';
+        const speed = opts.speed ?? 1.05;
+        const chaos = clamp(opts.chaos ?? 0.2, 0, 1);
+        const borderRadius = opts.borderRadius ?? parseFloat(getComputedStyle(el).borderRadius) || 18;
+
+        const octaves = 10, lacunarity = 1.6, gain = 0.7;
+        const amplitude = chaos, frequency = 10, baseFlatness = 0, displacement = 42, borderOffset = 32;
+
+        let width = 0, height = 0;
+        const updateSize = () => {
+          const rect = container.getBoundingClientRect();
+          width = rect.width + borderOffset * 2;
+          height = rect.height + borderOffset * 2;
+          const dpr = Math.min(window.devicePixelRatio || 1, 2.5);
+          canvas.width = width * dpr;
+          canvas.height = height * dpr;
+          canvas.style.width = `${width}px`;
+          canvas.style.height = `${height}px`;
+          ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        };
+        updateSize();
+
+        const state = { time: 0, last: performance.now() };
+        const draw = now => {
+          const delta = (now - state.last) / 1000;
+          state.time += delta * speed;
+          state.last = now;
+
+          ctx.setTransform(1, 0, 0, 1, 0, 0);
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          const dpr = Math.min(window.devicePixelRatio || 1, 2);
+          ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+          ctx.strokeStyle = color;
+          ctx.lineWidth = 1.4;
+          ctx.lineCap = 'round';
+          ctx.lineJoin = 'round';
+
+          const scale = displacement;
+          const left = borderOffset;
+          const top = borderOffset;
+          const bw = width - 2 * borderOffset;
+          const bh = height - 2 * borderOffset;
+          const maxR = Math.min(bw, bh) / 2;
+          const r = Math.min(borderRadius, maxR);
+
+        const perimeter = 2 * (bw + bh) + 2 * Math.PI * r;
+        const samples = Math.floor(perimeter / 2);
+          ctx.beginPath();
+
+          for (let i = 0; i <= samples; i++) {
+            const p = i / samples;
+            const point = getRoundedRectPoint(p, left, top, bw, bh, r);
+            const xNoise = octavedNoise(p * 8, octaves, lacunarity, gain, amplitude, frequency, state.time, 0, baseFlatness);
+            const yNoise = octavedNoise(p * 8, octaves, lacunarity, gain, amplitude, frequency, state.time, 1, baseFlatness);
+            const dx = point.x + xNoise * scale;
+            const dy = point.y + yNoise * scale;
+            if (i === 0) ctx.moveTo(dx, dy); else ctx.lineTo(dx, dy);
+          }
+
+          ctx.closePath();
+          ctx.stroke();
+          requestAnimationFrame(draw);
+        };
+        requestAnimationFrame(draw);
+
+        new ResizeObserver(() => updateSize()).observe(container);
+      };
+
+      const demo = document.getElementById('eb-demo');
+      if (demo) initElectricBorder(demo, { chaos: 0.12, speed: 1, borderRadius: 18 });
+    })();
+  </script>
+</body>
+</html>
